@@ -10,10 +10,13 @@ import Heading from '../Heading';
 import Input from '../Inputs/Input';
 import {toast} from 'react-hot-toast';
 import Button from '../Button';
+import { signIn } from 'next-auth/react';
+import useLoginModal from '@/app/hooks/useLoginModal';
 
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -41,6 +44,11 @@ const RegisterModal = () => {
             });
     };
 
+    const toggleModal = useCallback(() => {
+        registerModal.onClose();
+        loginModal.onOpen();
+    },[loginModal, registerModal]);
+
     const bodyContent = (
         <div className='flex flex-col gap-4'>
             <Heading title="Welcome to ResiSeeker" description="Create an account"/>
@@ -54,13 +62,13 @@ const RegisterModal = () => {
         <div className="flex flex-col gap-4 mt-3">
             <hr />
             <Button label="Continue with Google" icon={FcGoogle} onClick={() => {}} outline/>
-            <Button label="Continue with Github" icon={AiFillGithub} onClick={() => {}} outline/>
+            <Button label="Continue with Github" icon={AiFillGithub} onClick={() => signIn('github')} outline/>
             <div className="text-center mt-4 text-neutral-500 font-light">
                 <div className="flex flex-row items-center justify-center gap-2 text-center">
                     <div>
                         Already have an account?
                     </div>
-                    <div onClick={registerModal.onClose} className="cursor-pointer hover:underline text-neutral-800">
+                    <div onClick={toggleModal} className="cursor-pointer hover:underline text-neutral-800">
                         Log in
                     </div>
                 </div>

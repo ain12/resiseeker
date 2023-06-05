@@ -51,6 +51,10 @@ const LoginModal = () => {
             }
         })
     };
+    const toggleModal = useCallback(() => {
+        loginModal.onClose();
+        registerModal.onOpen();
+    },[loginModal, registerModal]);
 
     const bodyContent = (
         <div className='flex flex-col gap-4'>
@@ -64,14 +68,14 @@ const LoginModal = () => {
         <div className="flex flex-col gap-4 mt-3">
             <hr />
             <Button label="Continue with Google" icon={FcGoogle} onClick={() => {}} outline/>
-            <Button label="Continue with Github" icon={AiFillGithub} onClick={() => {}} outline/>
+            <Button label="Continue with Github" icon={AiFillGithub} onClick={() => signIn('github')} outline/>
             <div className="text-center mt-4 text-neutral-500 font-light">
                 <div className="flex flex-row items-center justify-center gap-2 text-center">
                     <div>
-                        Already have an account?
+                        First time here?
                     </div>
-                    <div onClick={registerModal.onClose} className="cursor-pointer hover:underline text-neutral-800">
-                        Log in
+                    <div onClick={toggleModal} className="cursor-pointer hover:underline text-neutral-800">
+                        Create an account
                     </div>
                 </div>
             </div>

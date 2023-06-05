@@ -8,7 +8,7 @@ const Logo = () => {
 
     return (
         <div className="md:flex items-center cursor-pointer hidden" onClick={() => router.push('/')}>
-            <Image src="/images/logo.png" width={50} height={50} alt="logo"/>
+            <Image onClick={() => router.push('/')} src="/images/logo.png" width={50} height={50} alt="logo"/>
             <div className="font-bold text-2xl">ResiSeeker</div>
         </div>
     );
